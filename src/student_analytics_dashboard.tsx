@@ -34,10 +34,19 @@ const StudentDashboard = () => {
   useEffect(() => {
     const loadData = async () => {
       try {
-        const response = await fetch('/student_habits_performance.csv');
+        console.log('Attempting to load CSV data...');
+        const response = await fetch('./student_habits_performance.csv');
+        
+        if (!response.ok) {
+          throw new Error(`HTTP error! status: ${response.status}`);
+        }
+        
         const csvText = await response.text();
+        console.log('CSV loaded successfully, length:', csvText.length);
+        
         const lines = csvText.split('\n');
         const headers = lines[0].split(',');
+        console.log('CSV headers:', headers);
         
         const data: StudentData[] = lines.slice(1).filter(line => line.trim()).map(line => {
           const values = line.split(',');
@@ -61,10 +70,15 @@ const StudentDashboard = () => {
           };
         });
         
+        console.log('Data processed successfully, records:', data.length);
         setStudentData(data);
         setLoading(false);
       } catch (error) {
         console.error('Error loading CSV data:', error);
+        console.error('Error details:', {
+          message: error.message,
+          stack: error.stack
+        });
         setLoading(false);
       }
     };
