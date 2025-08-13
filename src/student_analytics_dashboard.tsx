@@ -75,10 +75,14 @@ const StudentDashboard = () => {
         setLoading(false);
       } catch (error) {
         console.error('Error loading CSV data:', error);
-        console.error('Error details:', {
-          message: error.message,
-          stack: error.stack
-        });
+        if (error instanceof Error) {
+          console.error('Error details:', {
+            message: error.message,
+            stack: error.stack
+          });
+        } else {
+          console.error('Error details:', error);
+        }
         setLoading(false);
       }
     };
