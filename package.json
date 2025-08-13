@@ -2,6 +2,7 @@
   "name": "student-analytics-dashboard",
   "version": "1.0.0",
   "description": "Comprehensive student performance analytics dashboard",
+  "homepage": "https://mikewayne92.github.io/student-habits",
   "main": "index.js",
   "scripts": {
     "start": "react-scripts start",
